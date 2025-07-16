@@ -1,0 +1,26 @@
+{
+  "name": "custom-recipe-manager",
+  "version": "1.0.0",
+  "description": "A web-based recipe manager built with py4web that allows users to create, browse, and share recipes. This is a database-driven application with user accounts and support for searching and managing shared ingredients and recipes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build --prefix frontend",
+    "deploy": "gh-pages -d frontend/dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanarazia/custom-recipe-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hanarazia/custom-recipe-manager/issues"
+  },
+  "homepage": "https://hanarazia.github.io/custom-recipe-manager",
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
