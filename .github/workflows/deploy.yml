@@ -17,10 +17,11 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install dependencies
-        run: |
-          npm install
-          npm install --save-dev gh-pages
+      - name: Install root dev-deps (gh-pages)
+        run: npm install --save-dev gh-pages
+
+      - name: Install frontend dependencies
+        run: npm install --prefix frontend
 
       - name: Build frontend
         run: npm run build --prefix frontend
