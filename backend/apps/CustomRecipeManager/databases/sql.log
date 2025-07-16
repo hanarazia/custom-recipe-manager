@@ -1,0 +1,99 @@
+timestamp: 2025-05-20T22:43:05.844084
+CREATE TABLE "auth_user"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "username" CHAR(512) UNIQUE,
+    "email" CHAR(512) UNIQUE,
+    "password" CHAR(512),
+    "first_name" CHAR(512),
+    "last_name" CHAR(512),
+    "sso_id" CHAR(512),
+    "action_token" CHAR(512),
+    "last_password_change" TIMESTAMP,
+    "past_passwords_hash" TEXT
+);
+success!
+timestamp: 2025-05-20T22:43:05.852172
+CREATE TABLE "auth_user_tag_groups"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "tagpath" CHAR(512),
+    "record_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  
+);
+success!
+timestamp: 2025-05-20T22:43:05.861343
+CREATE TABLE "ingredient"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" CHAR(64) UNIQUE,
+    "unit" CHAR(512),
+    "description" TEXT,
+    "calories_per_unit" DOUBLE,
+    "protein_per_unit" DOUBLE,
+    "fat_per_unit" DOUBLE,
+    "carbs_per_unit" DOUBLE,
+    "sugar_per_unit" DOUBLE,
+    "fiber_per_unit" DOUBLE,
+    "sodium_per_unit" DOUBLE,
+    "created_on" TIMESTAMP,
+    "created_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "modified_on" TIMESTAMP,
+    "modified_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "is_active" CHAR(1)
+);
+success!
+timestamp: 2025-05-21T00:03:39.264244
+CREATE TABLE "recipe"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" CHAR(100),
+    "type" CHAR(512),
+    "description" TEXT,
+    "image" CHAR(512),
+    "author" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "instruction_steps" TEXT,
+    "servings" INTEGER,
+    "created_on" TIMESTAMP,
+    "created_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "modified_on" TIMESTAMP,
+    "modified_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "is_active" CHAR(1)
+);
+success!
+timestamp: 2025-05-21T00:31:17.189146
+CREATE TABLE "recipe_ingredient"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "recipe_id" INTEGER REFERENCES "recipe" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "ingredient_id" INTEGER REFERENCES "ingredient" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "quantity_per_serving" DOUBLE,
+    "created_on" TIMESTAMP,
+    "created_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "modified_on" TIMESTAMP,
+    "modified_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "is_active" CHAR(1)
+);
+success!
+timestamp: 2025-05-25T18:19:05.205063
+CREATE TABLE "contact"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" CHAR(100),
+    "email" CHAR(255),
+    "subject" CHAR(200),
+    "message" TEXT,
+    "status" CHAR(512),
+    "created_on" TIMESTAMP,
+    "created_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "modified_on" TIMESTAMP,
+    "modified_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "is_active" CHAR(1)
+);
+success!
+timestamp: 2025-05-29T15:41:13.797765
+CREATE TABLE "recipe_multiple_images"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "recipe_id" INTEGER REFERENCES "recipe" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "multi_images" CHAR(512),
+    "created_on" TIMESTAMP,
+    "created_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "modified_on" TIMESTAMP,
+    "modified_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "is_active" CHAR(1)
+);
+success!
+success!
